@@ -1,16 +1,31 @@
 {
   "name": "cheripicapp",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "start": "node server"
-  },
+  "version": "1.0.0",
+  "description": "",
+  "main": "routes.js",
   "dependencies": {
     "body-parser": "~1.15.1",
     "cookie-parser": "~1.4.3",
     "ejs": "~2.4.1",
     "express": "~4.13.4",
     "less-middleware": "1.0.x",
-    "socket.io": "^1.5.1"
-  }
+    "multer": "^0.1.8",
+    "socket.io": "^1.5.1",
+    "uuid": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wookoouk/cheripicapp.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wookoouk/cheripicapp/issues"
+  },
+  "homepage": "https://github.com/wookoouk/cheripicapp#readme"
 }

@@ -2,3 +2,8 @@
 config.json
 node_modules
 public/components
+cheripic
+
+
+tmp
+public/output
