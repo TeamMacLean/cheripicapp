@@ -1,0 +1,16 @@
+{
+  "name": "cheripicapp",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "node server"
+  },
+  "dependencies": {
+    "body-parser": "~1.15.1",
+    "cookie-parser": "~1.4.3",
+    "ejs": "~2.4.1",
+    "express": "~4.13.4",
+    "less-middleware": "1.0.x",
+    "socket.io": "^1.5.1"
+  }
+}

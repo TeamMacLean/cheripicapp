@@ -1,0 +1,98 @@
+<% include head.ejs %>
+
+
+<inputs>
+
+    <input type="file" name="" id="">
+    <input type="text" name="" id="">
+
+
+    <label for="assembly" data-help="Select Assembly fasta file">Input Assembly file</label>
+    <input type="file" name="assembly" id="assembly">
+
+    <label for="input_format">input file format</label>
+    <select name="input_format" id="input_format">
+        <option selected>vcf</option>
+        <option>bam</option>
+        <option>pileup</option>
+    </select>
+
+
+    <!--<param name="assembly" type="data" format="fasta" label="Input Assembly file" help="Select Assembly fasta file"/>-->
+    <!--<param name="input_format" type="select" optional="true" label="input file format"-->
+           <!--help="choose between vcf, bam and pileup format">-->
+    <!--<option value="vcf" selected="true">vcf</option>-->
+    <!--<option value="bam">bam</option>-->
+    <!--<option value="pileup">pileup</option>-->
+    <!--</param>-->
+    <param name="mut_bulk" type="data" label="mutant bulk input file" help="Select mutant bulk input file"/>
+    <param name="bg_bulk" type="data" label="background bulk input file" help="Select background bulk input file"/>
+    <param name="mut_bulk_vcf" type="data" optional="true" label="mutant bulk input vcf file"
+           help="Select mutant bulk input vcf file"/>
+    <param name="bg_bulk_vcf" type="data" optional="true" label="background bulk input vcf file"
+           help="Select background bulk input vcf file"/>
+    <param name="loglevel" type="select" optional="true" label="analysis log level"
+           help="choose between info, warn and debug levels">
+    <option value="info" selected="true">info</option>
+    <option value="warn">warnings</option>
+    <option value="debug">debug</option>
+    </param>
+    <param name="hmes_adjust" size="4" type="float" optional="true" value="0.5" min="0.01" max="1.0"
+           label="hme score adjuster"
+           help="factor added to snp count of each contig to adjust for hme score calculations"/>
+    <param name="ht_low" size="4" type="float" optional="true" value="0.25" min="0.1" max="1.0"
+           label="heterozygosity low limit" help="lower limit to heterozygosity allele fraction"/>
+    <param name="ht_high" size="4" type="float" optional="true" value="0.75" min="0.1" max="1.0"
+           label="heterozygosity high limit" help="upper limit to heterozygosity allele fraction"/>
+    <param name="min_depth" size="4" type="integer" optional="true" value="6" min="1" max="8000"
+           label="minimum read coverage" help="minimum read depth to conisder a position for variant calls"/>
+    <param name="max_d_multiple" size="4" type="integer" optional="true" value="5" min="0" max="100"
+           label="multiplication factor avg read coverage"
+           help="multiplication factor for average coverage to calculate maximum read coverage"/>
+    <param name="max_depth" size="4" type="integer" optional="true" value="0" min="0" max="8000"
+           label="maximum read coverage" help="maximum read depth to conisder a position for variant calls"/>
+    <param name="min_non_ref_count" size="4" type="integer" optional="true" value="3" min="1" max="8000"
+           label="minimum alternate read coverage"
+           help="minimum read depth supporting non reference base at each position"/>
+    <param name="min_indel_count_support" size="4" type="integer" optional="true" value="3" min="1" max="8000"
+           label="minimum indel read coverage" help="minimum read depth supporting an indel at each position"/>
+    <param name="ambiguous_ref_bases" type="boolean" optional="true" checked="false"
+           label="ambiguous reference position"
+           help="including variant at completely ambiguous bases in the reference" truevalue="true" falsevalue="false"/>
+    <param name="mapping_quality" size="4" type="integer" optional="true" value="20" min="0" max="255"
+           label="minimum mapping quality" help="minimum mapping quality of read covering the position"/>
+    <param name="base_quality" size="4" type="integer" optional="true" value="15" min="0" max="40"
+           label="minimum base quality" help="minimum base quality of nucleotides covering the position"/>
+    <param name="noise" size="4" type="float" optional="true" value="0.1" min="0" max="0.2"
+           label="read noise" help="proportion of reads supporting a variant, below which are consider as noise"/>
+    <param name="cross_type" type="select" optional="true" label="cross type"
+           help="type of cross used to generated mapping population - back or out">
+    <option value="back" selected="true">back cross</option>
+    <option value="out">out cross</option>
+    </param>
+
+    <param name="use_all_contigs" type="boolean" optional="true" checked="false" label="use all contigs in analysis"
+           help="option to select all contigs or only contigs containing variants for analysis" truevalue="true"
+           falsevalue="false"/>
+    <param name="include_low_hmes" type="boolean" optional="true" checked="false" label="no hme or bfr score cut off"
+           help="option to include or discard variants from contigs with low hme-score or bfr score to list in the final output"
+           truevalue="true" falsevalue="false"/>
+    <param name="polyploidy" type="boolean" optional="true" checked="false" label="polyploid data"
+           help="Set if the input data is from polyploids" truevalue="true" falsevalue="false"/>
+    <param name="mut_parent" type="data" optional="true" format="pileup" label="mutant parent pileup file"
+           help="Select mutant parent pileup file"/>
+    <param name="bg_parent" type="data" optional="true" format="pileup" label="background parent pileup file"
+           help="Select background parent pileup file"/>
+    <param name="repeats_file" type="data" optional="true" format="txt" label="Repeat masker output file"
+           help="Repeat masker output file of repeat positions"/>
+
+    <param name="bfr_adjust" size="4" type="float" optional="true" value="0.05" min="0.01" max="1.0"
+           label="bfr score adjuster"
+           help="factor added to hemi snp frequency of each parent to adjust for bfr calculations (default: 0.05)"/>
+    <param name="sel_seq_len" size="4" type="integer" optional="true" value="50" min="10" max="250"
+           label="selected variant seq length out"
+           help="sequence length to print from either side of selected variants (default: 50)"/>
+</inputs>
+
+
+<% include foot.ejs %>
