@@ -1,0 +1,16 @@
+<% include ./head.ejs %>
+<div class="container">
+
+    <h1 class="center big">Error</h1>
+
+    <% if(typeof error != 'undefined'){ %>
+    <div class="well code error">
+        <span class="center"><%- error %></span>
+    </div>
+    <% } else { %>
+    <p class="center">Something happened... Something bad...</p>
+    <% } %>
+
+</div>
+
+<% include ./foot.ejs %>

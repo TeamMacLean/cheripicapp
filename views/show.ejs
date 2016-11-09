@@ -1,0 +1,33 @@
+<% include ./head.ejs %>
+<div class="container">
+
+    <h2><%- job.id %></h2>
+
+    <h3>Status: <%- job.status() %></h3>
+
+    <% if(job.error || job.errored){ %>
+    <h3>Error:</h3>
+    <p><%- job.error %></p>
+    <% } %>
+
+    <% if(job.complete && !job.errored){ %>
+    <a href="/job/<%- job.id %>/download"><h4>Download</h4></a>
+    <% } %>
+
+    <div id="time"></div>
+
+</div>
+
+<% if(!job.complete && !job.errored){ %>
+<script>
+    var time = 10
+    setInterval(function () {
+        time--;
+        $('#time').html('refreshing in ' + time + ' seconds');
+        if (time === 0) {
+            location.reload();
+        }
+    }, 1000);
+</script>
+<% } %>
+<% include ./foot.ejs %>

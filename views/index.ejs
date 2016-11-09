@@ -16,7 +16,6 @@
         <hr>
 
         <h2>Bulk Data</h2>
-
         <fieldset>
             <label for="input_format" data-help="Choose between vcf, bam and pileup format">Input file format</label>
             <select name="input_format" id="input_format" required>
@@ -42,20 +41,19 @@
             </div>
         </div>
 
-
-        <div class="row">
+        <div class="row hidden" id="bulkvcf">
             <div class="col6">
                 <fieldset>
                     <label for="mut_bulk_vcf" data-help="Select mutant bulk input vcf file">Mutant bulk input vcf
                         file</label>
-                    <input type="file" name="mut_bulk_vcf" id="mut_bulk_vcf">
+                    <input type="file" name="mut_bulk_vcf" id="mut_bulk_vcf" accept=".vcf">
                 </fieldset>
             </div>
             <div class="col6">
                 <fieldset>
                     <label for="bg_bulk_vcf" data-help="Select background bulk input vcf file">Background bulk input vcf
                         file</label>
-                    <input type="file" name="bg_bulk_vcf" id="bg_bulk_vcf">
+                    <input type="file" name="bg_bulk_vcf" id="bg_bulk_vcf" accept=".vcf">
                 </fieldset>
             </div>
         </div>
@@ -63,21 +61,19 @@
 
         <hr>
 
-
         <fieldset>
             <label for="hmes_adjust"
                    data-help="factor added to snp count of each contig to adjust for hme score calculations">HME
                 score
                 adjuster</label>
-            <input type="number" step="any" name="hmes_adjust" id="hmes_adjust" min="0.01" max="1.0" value="0.5">
+            <input type="number" step="any" name="hmes_adjust" id="hmes_adjust" min="0.01" max="1.0"
+                   value="0.5">
         </fieldset>
-
         <fieldset>
             <label for="ht_low" data-help="lower limit to heterozygosity allele fraction">Heterozygosity low
                 limit</label>
             <input name="ht_low" size="4" type="number" step="any" value="0.25" min="0.1" max="1.0">
         </fieldset>
-
         <fieldset>
             <label for="ht_high" data-help="upper limit to heterozygosity allele fraction">Heterozygosity high
                 limit</label>
@@ -90,6 +86,13 @@
                 coverage</label>
             <input name="min_depth" size="4" type="number" step="any" value="6" min="1" max="8000">
         </fieldset>
+        <fieldset>
+            <label for="max_depth"
+                   data-help="minimum read depth supporting non reference base at each position">Maximum read
+                coverage</label>
+            <input name="max_depth" size="4" type="number" step="any" value="0" min="0" max="8000">
+        </fieldset>
+
 
         <fieldset>
             <label for="max_d_multiple"
@@ -98,12 +101,6 @@
             <input name="max_d_multiple" size="4" type="number" step="any" value="5" min="0" max="100">
         </fieldset>
 
-        <fieldset>
-            <label for="max_depth"
-                   data-help="minimum read depth supporting non reference base at each position">Maximum read
-                coverage</label>
-            <input name="max_depth" size="4" type="number" step="any" value="0" min="0" max="8000">
-        </fieldset>
 
         <fieldset>
             <label for="min_non_ref_count">Minimum alternate read coverage</label>
