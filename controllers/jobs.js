@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../config.json');
 const Job = require('../models/job');
+const email = require('../lib/email');
 
 const Jobs = {};
 
@@ -130,9 +131,11 @@ Jobs.submit = (req, res, next) => {
     const data = req.body;
     const files = req.files;
 
+
     const j = new Job({
         data,
-        files
+        files,
+        email: data.email
     });
 
     j.save()
@@ -142,12 +145,10 @@ Jobs.submit = (req, res, next) => {
 
                 if (err) {
                     //SAD
-
-                    //todo send fail email
+                    email.fail(savedJob);
                 } else {
                     //SUCCESS
-
-                    //todo send success email
+                    email.success(savedJob)
                 }
 
             });

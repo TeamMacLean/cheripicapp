@@ -13,7 +13,7 @@ const Job = thinky.createModel('Job', {
     errored: type.boolean().default(false),
     error: type.string(),
     outputPath: type.string(),
-    email: type.string()
+    email: type.string().required()
 });
 
 Job.define('status', function () {
