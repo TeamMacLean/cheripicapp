@@ -12,11 +12,12 @@ const Job = thinky.createModel('Job', {
     complete: type.boolean().default(false),
     errored: type.boolean().default(false),
     error: type.string(),
-    outputPath: type.string()
+    outputPath: type.string(),
+    email: type.string()
 });
 
 Job.define('status', function () {
-    var self = this;
+    const self = this;
     if (self.errored) {
         return 'Error'
     }

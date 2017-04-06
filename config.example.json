@@ -1,7 +1,13 @@
 {
   "port": "3000",
+  "url": "http://cheripic.tsl.ac.uk",
   "dbName": "cheripic",
   "tmpDir": "./tmp/",
   "cheripic": "cheripic/bin/cheripic",
-  "outputFilename": "cheripic_results_selected_hme_variants.txt"
+  "outputFilename": "cheripic_results_selected_hme_variants.txt",
+  "email": {
+    "host": "mail.example.org",
+    "port": "25",
+    "fromAddress": "CheriPic ✔ <hello@example.org>"
+  }
 }

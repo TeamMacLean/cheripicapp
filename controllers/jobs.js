@@ -4,9 +4,9 @@ const path = require('path');
 const config = require('../config.json');
 const Job = require('../models/job');
 
-var Jobs = {};
+const Jobs = {};
 
-var queue = async.queue(function (job, callback) {
+const queue = async.queue(function (job, callback) {
 
 
     console.log('queue are now', queue.length(), 'waiting in the queue');
@@ -16,7 +16,7 @@ var queue = async.queue(function (job, callback) {
 
     job.save();
 
-    var command = `${path.resolve(config.cheripic)}`;
+    let command = `${path.resolve(config.cheripic)}`;
 
     if (job.data.input_format) {
         command += ` --input-format ${job.data.input_format}`;
@@ -88,8 +88,8 @@ var queue = async.queue(function (job, callback) {
         command += ` --repeats-file ${path.resolve(job.files.repeats_file.path)}`;
     }
 
-    var exec = require("child_process").exec;
-    var dir = path.resolve(`tmp/${job.id}`);
+    const exec = require("child_process").exec;
+    const dir = path.resolve(`tmp/${job.id}`);
     fs.mkdir(dir, function (err) {
         if (err) {
             job.errored = true;
@@ -125,50 +125,61 @@ var queue = async.queue(function (job, callback) {
 }, 1);
 
 
-Jobs.submit = (req, res, next)=> {
+Jobs.submit = (req, res, next) => {
 
-    var data = req.body;
-    var files = req.files;
+    const data = req.body;
+    const files = req.files;
 
-    var j = new Job({
+    const j = new Job({
         data,
         files
     });
 
     j.save()
-        .then((savedJob)=> {
+        .then((savedJob) => {
 
             queue.push([savedJob], function (err) {
+
+                if (err) {
+                    //SAD
+
+                    //todo send fail email
+                } else {
+                    //SUCCESS
+
+                    //todo send success email
+                }
+
             });
             return res.redirect(`/job/${savedJob.id}`);
         })
-        .catch((err)=> {
+        .catch((err) => {
             return res.render('error', {error: err})
         })
 };
 
-Jobs.show = (req, res, next)=> {
+Jobs.show = (req, res, next) => {
 
-    var id = req.params.id;
+    const id = req.params.id;
 
     Job.get(id)
-        .then((job)=> {
+        .then((job) => {
             return res.render('show', {job})
         })
-        .catch((err)=> {
+        .catch((err) => {
             return res.render('error', {error: err});
         });
 
 
 };
 
-Jobs.download = (req, res, next)=> {
-    var id = req.params.id;
+Jobs.download = (req, res, next) => {
+    const id = req.params.id;
     Job.get(id)
-        .then((job)=> {
+        .then((job) => {
             return res.download(job.outputPath);
         })
-        .catch((err)=> {
+        .catch((err) => {
             return res.render('error', {error: err});
         });
 };
