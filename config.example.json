@@ -8,6 +8,6 @@
   "email": {
     "host": "mail.example.org",
     "port": "25",
-    "fromAddress": "CheriPic ✔ <hello@example.org>"
+    "fromAddress": "CheriPic 🍒 <noreply@example.org>"
   }
 }
