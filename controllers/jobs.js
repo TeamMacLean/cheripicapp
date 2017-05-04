@@ -7,6 +7,8 @@ const email = require('../lib/email');
 
 const Jobs = {};
 
+const EXTENTIONS = ['.vcf', '.bam', '.pileup', '.pleup', '.fa'];
+
 const queue = async.queue(function (job, callback) {
 
     try {
@@ -136,6 +138,22 @@ Jobs.submit = (req, res, next) => {
     const data = req.body;
     const files = req.files;
 
+
+    //check file extention is allowed
+    let badExtentions = files.map(file => {
+        console.log('file', file);
+        let ext = path.extname(file.filename.toLowerCase());
+
+        fs.chmodSync(file.path, '-x');
+
+        if (EXTENTIONS.indexOf(ext) === -1) {
+            return ext;
+        }
+    });
+
+    if (badExtentions.length && badExtentions.length > 0) {
+        return res.render('error', {error: `cannot accept files with the extentions ${badExtentions.toString()}`})
+    }
 
     const j = new Job({
         data,
