@@ -147,7 +147,7 @@ Jobs.submit = (req, res, next) => {
         if (!files.hasOwnProperty(key)) continue;
 
         // console.log('file', file);
-        let ext = path.extname(file.filename.toLowerCase());
+        let ext = path.extname(file.name.toLowerCase());
 
         fs.chmodSync(file.path, '-x');
 
