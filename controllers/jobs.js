@@ -140,18 +140,35 @@ Jobs.submit = (req, res, next) => {
 
     console.log(files);
 
+    let badExtentions = [];
+    for (let key in files) {
 
-    //check file extention is allowed
-    let badExtentions = files.map(file => {
-        console.log('file', file);
+        let file = files[key];
+        if (!files.hasOwnProperty(key)) continue;
+
+        // console.log('file', file);
         let ext = path.extname(file.filename.toLowerCase());
 
         fs.chmodSync(file.path, '-x');
 
         if (EXTENTIONS.indexOf(ext) === -1) {
-            return ext;
+            badExtentions.push(ext);
         }
-    });
+
+    }
+
+
+    // //check file extention is allowed
+    // let badExtentions = files.map(file => {
+    //     console.log('file', file);
+    //     let ext = path.extname(file.filename.toLowerCase());
+    //
+    //     fs.chmodSync(file.path, '-x');
+    //
+    //     if (EXTENTIONS.indexOf(ext) === -1) {
+    //         return ext;
+    //     }
+    // });
 
     if (badExtentions.length && badExtentions.length > 0) {
         return res.render('error', {error: `cannot accept files with the extentions ${badExtentions.toString()}`})
