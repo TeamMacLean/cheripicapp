@@ -138,6 +138,8 @@ Jobs.submit = (req, res, next) => {
     const data = req.body;
     const files = req.files;
 
+    console.log(files);
+
 
     //check file extention is allowed
     let badExtentions = files.map(file => {
