@@ -149,7 +149,7 @@ Jobs.submit = (req, res, next) => {
         // console.log('file', file);
         let ext = path.extname(file.name.toLowerCase());
 
-        fs.chmodSync(file.path, '-x');
+        fs.chmodSync(file.path, 664);
 
         if (EXTENTIONS.indexOf(ext) === -1) {
             badExtentions.push(ext);
