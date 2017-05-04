@@ -143,9 +143,8 @@ Jobs.submit = (req, res, next) => {
     let badExtentions = [];
     for (let key in files) {
 
-        let file = files[key];
         if (!files.hasOwnProperty(key)) continue;
-
+        let file = files[key];
         // console.log('file', file);
         let ext = path.extname(file.name.toLowerCase());
 
