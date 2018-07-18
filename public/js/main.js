@@ -1,15 +1,16 @@
 function setInputTypeAccepted() {
 
     var inputFormat = $('#input_format').val();
+    var bulkVCF = $('#bulkvcf');
 
     $('#mut_bulk').attr('accept', '.' + inputFormat);
     $('#bg_bulk').attr('accept', '.' + inputFormat);
 
-    if (inputFormat == 'bam') {
-        $('#bulkvcf').show();
+    if (inputFormat === 'bam') {
+        bulkVCF.show();
     } else {
-        $('#bulkvcf').hide();
-        $('#bulkvcf').find('input').val("");
+        bulkVCF.hide();
+        bulkVCF.find('input').val("");
     }
 
 }
@@ -18,7 +19,6 @@ function setInputTypeAccepted() {
 $('#input_format').on('change', function () {
     setInputTypeAccepted();
 });
-
 
 $(function () {
     setInputTypeAccepted();

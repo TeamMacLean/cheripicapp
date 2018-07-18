@@ -3,6 +3,7 @@ button,
 input[type="submit"],
 input[type="reset"],
 input[type="button"] {
+  text-decoration: none;
   background-color: @white;
   height: @input-height;
   line-height: @input-height;
@@ -13,7 +14,7 @@ input[type="button"] {
   display: inline-block;
   padding: 0 1rem;
   font-size: 1rem;
-  font-weight: 600;
+  //font-weight: 30;
   text-align: center;
   white-space: nowrap;
   vertical-align: middle;
@@ -58,6 +59,16 @@ input[type="button"] {
     }
   }
 
+  &.outline {
+    border: @white 1px solid;
+    color: @white;
+    background: none;
+    &:hover{
+      //border: none;
+      background: inherit;
+    }
+  }
+
   &.danger {
     color: @white;
     background-color: @red;
@@ -86,6 +97,15 @@ input[type="button"] {
       background-color: darken(@blue, 4%);
       color: @white;
     }
+  }
+
+  &.wide {
+    width: 100%;
+  }
+  &.large {
+    padding: 32px;
+    line-height: 0;
+    font-size: 1.5rem;
   }
 
   &.center {

@@ -15,7 +15,6 @@
     "nodemailer-smtp-transport": "^2.7.2",
     "thinky": "^2.3.7"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"

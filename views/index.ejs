@@ -1,225 +1,355 @@
 <% include head.ejs %>
 
-<div class="container">
 
-    <h1 class="center">CheriPic</h1>
+<div class="sub-title center">
+    <div class="container">
+        <p><a href="/test_data/test_data.zip" class="button border primary">Test Data</a> This data can be used to fill
+            and submit this form for testing and demonstration.</p>
+    </div>
+</div>
+
+<div class="container">
 
     <form id="form" action="/submit" method="post" enctype="multipart/form-data">
 
-        <h2>Assembly</h2>
+        <div class="row">
+            <div class="col6">
+                <h2>Assembly</h2>
 
+                <fieldset>
+                    <label for="assembly" data-tooltip="Select Assembly fasta file">Input Assembly file</label>
+                    <input type="file" name="assembly" id="assembly" required>
+                </fieldset>
+            </div>
+            <div class="col6">
+                <h2>Bulk Data</h2>
+                <div class="row">
+                    <div class="col6">
+                        <fieldset>
+                            <label for="input_format" data-tooltip="Choose between vcf, bam and pileup format">Input
+                                file
+                                format</label>
+                            <select name="input_format" id="input_format" required>
+                                <option value="vcf" selected>vcf</option>
+                                <option value="bam">bam</option>
+                                <option value="pileup">pileup</option>
+                            </select>
+                        </fieldset>
+
+                    </div>
+                    <div class="col6">
+                        <fieldset>
+                            <label for="cross_type"
+                                   data-tooltip="type of cross used to generated mapping population - back or out">Cross
+                                type</label>
+                            <select name="cross_type" type="select">
+                                <option value="back" selected>back cross</option>
+                                <option value="out">out cross</option>
+                            </select>
+                        </fieldset>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col6">
+                        <fieldset>
+                            <label for="mut_bulk" data-tooltip="Select mutant bulk input file">Mutant bulk input
+                                file</label>
+                            <input type="file" name="mut_bulk" id="mut_bulk" required>
+                        </fieldset>
+                    </div>
+                    <div class="col6">
+                        <fieldset>
+                            <label for="bg_bulk" data-tooltip="Select background bulk input file">Background bulk input
+                                file</label>
+                            <input type="file" name="bg_bulk" id="bg_bulk" required>
+                        </fieldset>
+                    </div>
+                </div>
+
+                <div class="row hidden" id="bulkvcf">
+                    <div class="col6">
+                        <fieldset>
+                            <label for="mut_bulk_vcf" data-tooltip="Select mutant bulk input vcf file">Mutant bulk input
+                                vcf
+                                file</label>
+                            <input type="file" name="mut_bulk_vcf" id="mut_bulk_vcf" accept=".vcf">
+                        </fieldset>
+                    </div>
+                    <div class="col6">
+                        <fieldset>
+                            <label for="bg_bulk_vcf" data-tooltip="Select background bulk input vcf file">Background
+                                bulk
+                                input vcf
+                                file</label>
+                            <input type="file" name="bg_bulk_vcf" id="bg_bulk_vcf" accept=".vcf">
+                        </fieldset>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <hr class="divider"/>
+
+        <h2>Options</h2>
+        <h3>Homozygosity Settings</h3>
+        <!--GROUP 1-->
+        <div class="row">
+            <div class="col4">
+                <fieldset>
+                    <label for="hmes_adjust"
+                           data-tooltip="factor added to snp count of each contig to adjust for hme score calculations">HME
+                        score
+                        adjuster</label>
+                    <input type="number" step="any" name="hmes_adjust" id="hmes_adjust" min="0.01" max="1.0"
+                           value="0.5">
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="ht_low" data-tooltip="lower limit to heterozygosity allele fraction">Heterozygosity low
+                        limit</label>
+                    <input name="ht_low" size="4" type="number" step="any" value="0.25" min="0.1" max="1.0">
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="ht_high" data-tooltip="upper limit to heterozygosity allele fraction">Heterozygosity
+                        high
+                        limit</label>
+                    <input name="ht_high" size="4" type="number" step="any" value="0.75" min="0.1" max="1.0">
+                </fieldset>
+
+            </div>
+        </div>
+
+        <div class="divider"></div>
+        <!--GROUP 2-->
+        <h3>Read Settings</h3>
+        <div class="row">
+            <div class="col4">
+                <fieldset>
+                    <label for="min_depth" data-tooltip="minimum read depth to conisder a position for variant calls">Minimum
+                        read coverage</label>
+                    <input name="min_depth" size="4" type="number" step="any" value="6" min="1" max="8000">
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="max_depth"
+                           data-tooltip="minimum read depth supporting non reference base at each position">Maximum read
+                        coverage</label>
+                    <input name="max_depth" size="4" type="number" step="any" value="0" min="0" max="8000">
+                </fieldset>
+            </div>
+            <div class="col4"></div><!--EMPTY-->
+
+        </div>
+        <div class="row">
+            <div class="col4">
+                <fieldset>
+                    <label for="max_d_multiple"
+                           data-tooltip="multiplication factor for average coverage to calculate maximum read coverage">Multiplication
+                        factor avg read coverage</label>
+                    <input name="max_d_multiple" size="4" type="number" step="any" value="5" min="0" max="100">
+                </fieldset>
+
+            </div>
+            <div class="col4">
+
+                <fieldset>
+                    <label for="min_non_ref_count">Minimum alternate read coverage</label>
+                    <input name="min_non_ref_count" size="4" type="number" step="any" value="3" min="1" max="8000">
+                </fieldset>
+            </div>
+
+            <div class="col4">
+                <fieldset>
+                    <label for="min_indel_count_support"
+                           data-tooltip="minimum read depth supporting an indel at each position">Minimum indel read
+                        coverage</label>
+                    <input name="min_indel_count_support" size="4" type="number" step="any" value="3" min="1"
+                           max="8000">
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!--NO GROUP-->
         <fieldset>
-            <label for="assembly" data-help="Select Assembly fasta file">Input Assembly file</label>
-            <input type="file" name="assembly" id="assembly" required>
+            <label
+                    data-tooltip="including variant at completely ambiguous bases in the reference"><input
+                        name="ambiguous_ref_bases" type="checkbox">Ambiguous
+                reference position</label>
+
         </fieldset>
 
-        <hr>
+        <div class="divider"></div>
 
-        <h2>Bulk Data</h2>
-        <fieldset>
-            <label for="input_format" data-help="Choose between vcf, bam and pileup format">Input file format</label>
-            <select name="input_format" id="input_format" required>
-                <option value="vcf" selected>vcf</option>
-                <option value="bam">bam</option>
-                <option value="pileup">pileup</option>
-            </select>
-        </fieldset>
+        <!--GROUP 3-->
+        <h3>Alignment Settings</h3>
+        <div class="row">
 
+            <div class="col4">
+                <fieldset>
+                    <label for="mapping_quality" data-tooltip="minimum mapping quality of read covering the position">Minimum
+                        mapping
+                        quality</label>
+                    <input name="mapping_quality" size="4" type="number" step="any" value="20" min="0" max="255">
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="base_quality" data-tooltip="minimum base quality of nucleotides covering the position">Minimum
+                        base
+                        quality</label>
+                    <input name="base_quality" size="4" type="number" step="any" value="15" min="0" max="40">
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="noise"
+                           data-tooltip="proportion of reads supporting a variant, below which are consider as noise">Read
+                        noise</label>
+                    <input name="noise" size="4" type="number" step="any" value="0.1" min="0" max="0.2">
+                </fieldset>
+
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!--GROUP 4-->
+        <h3>Misc Settings</h3>
+        <div class="row">
+            <div class="col4">
+                <fieldset>
+                    <label for="use_all_contigs"
+                           data-tooltip="option to select all contigs or only contigs containing variants for analysis"><input
+                                name="use_all_contigs" type="checkbox">Use
+                        all contigs in analysis</label>
+
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="include_low_hmes"
+                           data-tooltip="option to include or discard variants from contigs with low hme-score or bfr score to list in the final output"><input
+                                name="include_low_hmes" type="checkbox">No
+                        hme or bfr score cut off</label>
+
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="polyploidy" data-tooltip="Set if the input data is from polyploids"><input
+                                name="polyploidy" type="checkbox">Polyploid data</label>
+
+                </fieldset>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!--GROUP 5-->
+        <h3>Masking Settings</h3>
+        <div class="row">
+            <div class="col4">
+                <fieldset>
+                    <label for="mut_parent" data-tooltip="Select mutant parent pileup file">Mutant parent pileup
+                        file</label>
+                    <input name="mut_parent" type="file" format="pileup">
+                </fieldset>
+
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="bg_parent" data-tooltip="Select background parent pileup file">Background parent pileup
+                        file</label>
+                    <input name="bg_parent" type="file" format="pileup">
+                </fieldset>
+            </div>
+            <div class="col4">
+                <fieldset>
+                    <label for="repeats_file" data-tooltip="Repeat masker output file of repeat positions">Repeat masker
+                        output
+                        file</label>
+                    <input name="repeats_file" type="file" format="txt">
+                </fieldset>
+
+            </div>
+        </div>
+        <div class="row">
+            <div class="col3">
+                <fieldset>
+                    <label for="bfr_adjust"
+                           data-tooltip="factor added to hemi snp frequency of each parent to adjust for bfr calculations (default: 0.05)">BFR
+                        score adjuster</label>
+                    <input name="bfr_adjust" size="4" type="number" step="any" value="0.05" min="0.01" max="1.0">
+                </fieldset>
+            </div>
+            <div class="col3"></div><!--EMPTY-->
+            <div class="col3"></div><!--EMPTY-->
+            <div class="col3"></div><!--EMPTY-->
+        </div>
+
+        <hr class="divider"/>
+
+        <h2>Output Settings</h2>
         <div class="row">
             <div class="col6">
                 <fieldset>
-                    <label for="mut_bulk" data-help="Select mutant bulk input file">Mutant bulk input file</label>
-                    <input type="file" name="mut_bulk" id="mut_bulk" required>
+                    <label for="sel_seq_len"
+                           data-tooltip="sequence length to print from either side of selected variants (default: 50)">Selected
+                        variant
+                        seq length out</label>
+                    <input name="sel_seq_len" size="4" type="number" step="any" value="50" min="10" max="250">
                 </fieldset>
             </div>
             <div class="col6">
                 <fieldset>
-                    <label for="bg_bulk" data-help="Select background bulk input file">Background bulk input
-                        file</label>
-                    <input type="file" name="bg_bulk" id="bg_bulk" required>
+                    <label for="email">Get notified by email when the output is ready</label>
+                    <input type="email" name="email" required placeholder="me@example.org">
                 </fieldset>
             </div>
         </div>
 
-        <div class="row hidden" id="bulkvcf">
-            <div class="col6">
-                <fieldset>
-                    <label for="mut_bulk_vcf" data-help="Select mutant bulk input vcf file">Mutant bulk input vcf
-                        file</label>
-                    <input type="file" name="mut_bulk_vcf" id="mut_bulk_vcf" accept=".vcf">
-                </fieldset>
-            </div>
-            <div class="col6">
-                <fieldset>
-                    <label for="bg_bulk_vcf" data-help="Select background bulk input vcf file">Background bulk input vcf
-                        file</label>
-                    <input type="file" name="bg_bulk_vcf" id="bg_bulk_vcf" accept=".vcf">
-                </fieldset>
-            </div>
-        </div>
-
-
-        <hr>
-
-        <fieldset>
-            <label for="hmes_adjust"
-                   data-help="factor added to snp count of each contig to adjust for hme score calculations">HME
-                score
-                adjuster</label>
-            <input type="number" step="any" name="hmes_adjust" id="hmes_adjust" min="0.01" max="1.0"
-                   value="0.5">
-        </fieldset>
-        <fieldset>
-            <label for="ht_low" data-help="lower limit to heterozygosity allele fraction">Heterozygosity low
-                limit</label>
-            <input name="ht_low" size="4" type="number" step="any" value="0.25" min="0.1" max="1.0">
-        </fieldset>
-        <fieldset>
-            <label for="ht_high" data-help="upper limit to heterozygosity allele fraction">Heterozygosity high
-                limit</label>
-            <input name="ht_high" size="4" type="number" step="any" value="0.75" min="0.1" max="1.0">
-        </fieldset>
-
-        <fieldset>
-            <label for="min_depth" data-help="minimum read depth to conisder a position for variant calls">Minimum
-                read
-                coverage</label>
-            <input name="min_depth" size="4" type="number" step="any" value="6" min="1" max="8000">
-        </fieldset>
-        <fieldset>
-            <label for="max_depth"
-                   data-help="minimum read depth supporting non reference base at each position">Maximum read
-                coverage</label>
-            <input name="max_depth" size="4" type="number" step="any" value="0" min="0" max="8000">
-        </fieldset>
-
-
-        <fieldset>
-            <label for="max_d_multiple"
-                   data-help="multiplication factor for average coverage to calculate maximum read coverage">Multiplication
-                factor avg read coverage</label>
-            <input name="max_d_multiple" size="4" type="number" step="any" value="5" min="0" max="100">
-        </fieldset>
-
-
-        <fieldset>
-            <label for="min_non_ref_count">Minimum alternate read coverage</label>
-            <input name="min_non_ref_count" size="4" type="number" step="any" value="3" min="1" max="8000">
-        </fieldset>
-
-        <fieldset>
-            <label for="min_indel_count_support"
-                   data-help="minimum read depth supporting an indel at each position">Minimum indel read
-                coverage</label>
-            <input name="min_indel_count_support" size="4" type="number" step="any" value="3" min="1" max="8000">
-        </fieldset>
-
-        <fieldset>
-            <label for="ambiguous_ref_bases"
-                   data-help="including variant at completely ambiguous bases in the reference">Ambiguous
-                reference position</label>
-            <input name="ambiguous_ref_bases" type="checkbox">
-        </fieldset>
-
-        <fieldset>
-            <label for="mapping_quality" data-help="minimum mapping quality of read covering the position">Minimum
-                mapping
-                quality</label>
-            <input name="mapping_quality" size="4" type="number" step="any" value="20" min="0" max="255">
-        </fieldset>
-
-        <fieldset>
-            <label for="base_quality" data-help="minimum base quality of nucleotides covering the position">Minimum
-                base
-                quality</label>
-            <input name="base_quality" size="4" type="number" step="any" value="15" min="0" max="40">
-        </fieldset>
-
-        <fieldset>
-            <label for="noise"
-                   data-help="proportion of reads supporting a variant, below which are consider as noise">Read
-                noise</label>
-            <input name="noise" size="4" type="number" step="any" value="0.1" min="0" max="0.2">
-        </fieldset>
-
-        <fieldset>
-            <label for="cross_type" data-help="type of cross used to generated mapping population - back or out">Cross
-                type</label>
-            <select name="cross_type" type="select">
-                <option value="back" selected>back cross</option>
-                <option value="out">out cross</option>
-            </select>
-        </fieldset>
-
-        <fieldset>
-            <label for="use_all_contigs"
-                   data-help="option to select all contigs or only contigs containing variants for analysis">Use
-                all contigs in analysis</label>
-            <input name="use_all_contigs" type="checkbox">
-        </fieldset>
-
-        <fieldset>
-            <label for="include_low_hmes"
-                   data-help="option to include or discard variants from contigs with low hme-score or bfr score to list in the final output">No
-                hme or bfr score cut off</label>
-            <input name="include_low_hmes" type="checkbox">
-        </fieldset>
-
-        <fieldset>
-            <label for="polyploidy" data-help="Set if the input data is from polyploids">Polyploid data</label>
-            <input name="polyploidy" type="checkbox">
-        </fieldset>
-
-        <fieldset>
-            <label for="mut_parent" data-help="Select mutant parent pileup file">Mutant parent pileup file</label>
-            <input name="mut_parent" type="file" format="pileup">
-        </fieldset>
-
-        <fieldset>
-            <label for="bg_parent" data-help="Select background parent pileup file">Background parent pileup
-                file</label>
-            <input name="bg_parent" type="file" format="pileup">
-        </fieldset>
-
-        <fieldset>
-            <label for="repeats_file" data-help="Repeat masker output file of repeat positions">Repeat masker output
-                file</label>
-            <input name="repeats_file" type="file" format="txt">
-        </fieldset>
-
-        <fieldset>
-            <label for="bfr_adjust"
-                   data-help="factor added to hemi snp frequency of each parent to adjust for bfr calculations (default: 0.05)">BFR
-                score adjuster</label>
-            <input name="bfr_adjust" size="4" type="number" step="any" value="0.05" min="0.01" max="1.0">
-        </fieldset>
-
-        <fieldset>
-            <label for="sel_seq_len"
-                   data-help="sequence length to print from either side of selected variants (default: 50)">Selected
-                variant
-                seq length out</label>
-            <input name="sel_seq_len" size="4" type="number" step="any" value="50" min="10" max="250">
-        </fieldset>
 
         <!--<fieldset>-->
-            <!--<label for="loglevel" data-help="choose between info, warn and debug levels">Analysis log level</label>-->
-            <!--<select name="loglevel">-->
-                <!--<option value="info" selected>info</option>-->
-                <!--<option value="warn">warning</option>-->
-                <!--<option value="debug">debug</option>-->
-            <!--</select>-->
+        <!--<label for="loglevel" data-tooltip="choose between info, warn and debug levels">Analysis log level</label>-->
+        <!--<select name="loglevel">-->
+        <!--<option value="info" selected>info</option>-->
+        <!--<option value="warn">warning</option>-->
+        <!--<option value="debug">debug</option>-->
+        <!--</select>-->
         <!--</fieldset>-->
 
-        <fieldset>
-            <label for="email">Get notified by email when the output is ready</label>
-            <input type="email" name="email" placeholder="me@example.org">
-        </fieldset>
 
-        <input class="success" type="submit">
+        <input class="primary wide large mt-3 mb-3" type="submit">
+
+        <img src="/img/bbsrc_small.png" class="center" height="128px" width="auto">
     </form>
-    <img class="center" width="64px" height="auto" src="/img/logo.png">
-</div>
 
+
+</div>
+<!--<div class="test-data">-->
+<!--<div class="container">-->
+<!--<h2>Test Data</h2>-->
+<!--<p>This data can be used to fill and submit this form for testing and demonstration.</p>-->
+<!--<a href="/test_data/test_data.zip" class="button">Download</a>-->
+<!--</div>-->
+<!--</div>-->
+
+<footer class="footer">
+    <div class="container">
+
+        <p class="center">The Sainsbury Laboratory. Funded by The Gatsby Charitable Foundation and BBSRC, BB/I023798/1</p>
+        <a href="http://github.com/teammaclean/cheripic" target="_blank" class="pull-right">
+            <img width="32px" alt="Github Logomark" src="/img/github.svg">
+        </a>
+
+    </div>
+</footer>
 
 <% include foot.ejs %>

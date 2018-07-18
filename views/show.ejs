@@ -1,7 +1,7 @@
 <% include ./head.ejs %>
 <div class="container">
 
-    <h2><%- job.id %></h2>
+    <h2>Job ID: <%- job.id %></h2>
 
     <h3>Status: <%- job.status() %></h3>
 
@@ -20,7 +20,7 @@
 
 <% if(!job.complete && !job.errored){ %>
 <script>
-    var time = 10
+    var time = 3
     setInterval(function () {
         time--;
         $('#time').html('refreshing in ' + time + ' seconds');
