@@ -4,7 +4,7 @@
   "description": "",
   "main": "routes.js",
   "dependencies": {
-    "async": "latest",
+    "async": "^2.6.1",
     "body-parser": "^1.18.3",
     "cookie-parser": "~1.4.3",
     "ejs": "^2.5.9",
