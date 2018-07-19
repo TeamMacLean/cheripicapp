@@ -8,6 +8,11 @@
     <% if(job.error || job.errored){ %>
     <h3>Error:</h3>
     <p><%- job.error %></p>
+
+    <a href="mailto:martin.page@tsl.ac.uk?subject=I found a bug with the CheriPic site&body=<%- encodeURI(job.error) %>"
+       class="button primary center" target="_blank"><span data-icon="&#xe010;"></span> Report
+        this
+        bug</a>
     <% } %>
 
     <% if(job.complete && !job.errored){ %>
